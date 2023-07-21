@@ -42,27 +42,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@main
-    
-    # 加入缓存步骤
-    - uses: actions/cache@v3
-      id: cache  
-      with:
-        path: |
-          dl
-          build_dir
-        key: ${{ runner.os }}-openwrt-${{ hashFiles('config/*') }}
-        
-    - name: Load cache
-      if: steps.cache.outputs.cache-hit == 'true'
-      run: |
-        mv build_dir/.config .config   
-    
-    # 编译指令    
-    - name: Save cache
-      if: always()
-      run: |
-        mv .config build_dir/
-        rm -rf build_dir/diffconfig 
+      
 
     - name: Initialization environment
       env:
